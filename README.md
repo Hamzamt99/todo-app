@@ -1,5 +1,7 @@
 ## pull request : https://github.com/Hamzamt99/todo-app/pull/1
 
+## deploy link : https://main--mellow-axolotl-cc1477.netlify.app/
+
 ## Describe how global state is consumed by the components:
 ### Global state is typically consumed by components in a software system through explicit references or access methods provided by the state management system. Components request and receive the current state values they need from the global state store, ensuring synchronization and consistency across the application. Any updates to the global state are also managed and propagated through the same system, ensuring all components are aware of changes.
 
