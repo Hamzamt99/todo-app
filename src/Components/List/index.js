@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Setting } from '../../Context/Settings'
 import { Pagination } from '@mantine/core';
 import './style.scss'
@@ -24,30 +24,32 @@ export default function List() {
             return item;
         });
         setting.dispatch({ type: 'TOGGLE_COMPLETE', payload: items });
+       
     }
-    
+
     function deleteItem(id) {
         const items = setting.state.list.filter(item => item.id !== id);
         setting.dispatch({ type: 'DELETE_ITEM', payload: items });
     }
     return (
-        <div className="list-container">
+        <div>
             <header data-testid="todo-header" className="todo-header" >
-                <h2 data-testid="todo-h1">To Do List: {showingItems.length} items pending : </h2>
+                <h2 data-testid="todo-h1" >To Do List: {showingItems.length} items pending : </h2>
             </header>
-            <div className="header-container">
-                {
-                    showingItems.map(item => (
-                        !item.complete &&
-                        <div key={item.id} className="todo-item">
-                            <p>{item.text}</p>
-                            <p>Assigned to: {item.assignee}</p>
-                            <p>Difficulty: {item.difficulty}</p>
-                            <div onClick={() => toggleComplete(item.id)}>Complete: <button>{item.complete.toString()}</button> </div>
-                            <hr />
-                        </div>
-                    ))}
-                {/* <header className="todo-header" data-testid="todo-header">
+            <div className='list-container'>
+                <div className="header-container">
+                    {
+                        showingItems.map(item => (
+                            !item.complete &&
+                            <div key={item.id} className="todo-item">
+                                <p className='pargraph'>Task: {item.text}</p>
+                                <p>Assigned to: {item.assignee}</p>
+                                <p>Difficulty: {item.difficulty}</p>
+                                <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete}pending</button> </div>
+                                <hr />
+                            </div>
+                        ))}
+                    {/* <header className="todo-header" data-testid="todo-header">
                     <h2 data-testid="todo-h1">To Do List: {completed.length}completed item</h2>
                 </header>
                 {
@@ -57,12 +59,15 @@ export default function List() {
                             <p>{item.text}</p>
                             <p>Assigned to: {item.assignee}</p>
                             <p>Difficulty: {item.difficulty}</p>
-                            <div onClick={() => toggleComplete(item.id)}>Complete: <button>{item.complete.toString()}</button> </div>
+                            <div onClick={() => toggleComplete(item.id)}>Complete: <button>{item.complete}complete</button> </div>
                             <hr />
                         </div>
                     ))} */}
+                </div>
             </div>
-            <Pagination value={activePage} onChange={setPage} total={totalpages} />
+            <div className='slider'>
+                <Pagination value={activePage} onChange={setPage} total={totalpages} />
+            </div>
         </div >
     )
 }

@@ -18,15 +18,15 @@ const Todo = () => {
     setting.dispatch({ type: 'list', payload: item });
   }
 
-  useEffect(() => {
-    let incompleteCount = setting.state.list.filter(item => !item.complete).length;
-    // let completeCount = setting.state.list.filter(item => item.complete).length;
-    setting.dispatch({ type: 'incomplete', payload: incompleteCount });
-    // setting.dispatch({ type: 'compelte', payload: completeCount })
-    // linter will want 'incomplete' added to dependency array unnecessarily. 
-    // disable code used to avoid linter warning 
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [setting.state.list]);
+  // useEffect(() => {
+  //   // let incompleteCount = setting.state.list.filter(item => !item.complete).length;
+  //   // // let completeCount = setting.state.list.filter(item => item.complete).length;
+  //   // setting.dispatch({ type: 'incomplete', payload: incompleteCount });
+  //   // setting.dispatch({ type: 'compelte', payload: completeCount })
+  //   // linter will want 'incomplete' added to dependency array unnecessarily. 
+  //   // disable code used to avoid linter warning 
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps 
+  // }, [setting.state.list]);
 
   return (
     <div className="form-container">
