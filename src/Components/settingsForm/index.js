@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Setting } from '../../Context/Settings';
 import { Text } from '@mantine/core';
 import { When } from "react-if";
-
+import './style.css'
+import { Card } from 'react-bootstrap';
 export default function SettingForm() {
     const [data, setData] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
@@ -17,7 +18,7 @@ export default function SettingForm() {
         e.preventDefault();
         const obj = {
             switch: isChecked,
-            perPage: e.target.perPage.value,
+            perPage: e.target.perPage.value || 1,
             sort: e.target.sort.value || 'Difficulty',
         };
         localStorage.setItem('form', JSON.stringify(obj));
@@ -27,36 +28,41 @@ export default function SettingForm() {
     };
 
     return (
-        <div>
-            <form onSubmit={submitHandler}>
-                <label className="switch">
+        <>
+            <div className='bigContainer'>
+                <h1>Manage Setting</h1>
+            </div>
+            <div className='container'>
+                <form onSubmit={submitHandler} className='form'>
                     <p>Show completed toDo</p>
-                    <input
-                        type="checkbox"
-                        name="check"
-                        checked={isChecked}
-                        onChange={toggleSwitch}
-                    />
-                    <span className="slider round"></span>
-                </label>
-                <label> Item per page
-                    <input type='number' name='perPage' />
-                </label>
-                <label> Sort Keyword
-                    <input type='text' name='sort' placeholder='Difficulty' />
-                </label>
-                <button type='submit'>Set new Setting</button>
-            </form>
-            <br /><br /><br />
-
-            <div>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            name="check"
+                            checked={isChecked}
+                            onChange={toggleSwitch}
+                        />
+                        <span className="slider round"></span>
+                    </label><br />
+                    <label> Item per page
+                        <input type='number' name='perPage' />
+                    </label>
+                    <label> Sort Keyword
+                        <input type='text' name='sort' placeholder='Difficulty' />
+                    </label><br />
+                    <button type='submit' className='btns'>Set new Setting</button>
+                </form>
                 <When condition={show}>
-                    <Text fontSize="xl" weight="bold">Updated Settings</Text>
-                    <Text>{data.switch ? 'Show' : 'Hide'} Completed Todos</Text>
-                    <Text>Items Per Page: {data.perPage}</Text>
-                    <Text>Sort Keyword: {data.sort}</Text>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Body>
+                            <Card.Title>Updated Settings</Card.Title><br />
+                            <Text><span style={{ color: 'red', fontWeight: 600 }}>{data.switch ? 'Show' : 'Hide'}</span> The Completed Todos</Text><br />
+                            <Text>Items Per Page: {data.perPage}</Text><br />
+                            <Text>Sort Keyword: {data.sort}</Text><br />
+                        </Card.Body>
+                    </Card>
                 </When>
             </div>
-        </div>
+        </>
     );
 }
