@@ -14,11 +14,11 @@ export default function List() {
 
     const [activePage, setPage] = useState(1);
 
-    let itemPerPage = +data.perPage || 3
+    let itemPerPage = data ? +data.perPage : 3
 
     const statItem = (activePage - 1) * itemPerPage
     const endItem = statItem + itemPerPage
-    const showingItems = data.switch ? setting.state.list.slice(statItem, endItem) : incompleted.slice(statItem, endItem)
+    const showingItems = data && data.switch ? setting.state.list.slice(statItem, endItem) : incompleted.slice(statItem, endItem)
     let totalpages = Math.ceil(setting.state.list.length / 3)
 
     function toggleComplete(id) {
