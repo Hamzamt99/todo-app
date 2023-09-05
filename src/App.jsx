@@ -1,20 +1,22 @@
 import React from 'react';
 
-import Todo from './Components/Todo';
-import List from './Components/List';
+import { Route, Routes } from 'react-router-dom';
+import SettingForm from './Components/settingsForm';
+import Container from './Components/container/Container';
+import NavTool from './Components/Header/'
 import Context from './Context/Settings';
-import NavTool from './Components/Header';
-import Footer from './Components/Footer';
-export default class App extends React.Component {
-  render() {
-    return (
-      <Context>
-        <NavTool />
-        <Todo />
-        <List />
-        <Footer />
-      </Context>
 
-    );
-  }
+export default function App() {
+  return (
+
+    <Context>
+      <Routes>
+        <Route path='/setting' element={<SettingForm />} />
+        <Route path='/' element={<Container />} />
+      </Routes>
+    </Context>
+
+
+  );
+
 }
