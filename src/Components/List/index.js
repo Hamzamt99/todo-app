@@ -53,13 +53,12 @@ export default function List() {
                                 <p>Assigned to: {item.assignee}</p>
                                 <p>Difficulty: {item.difficulty}</p>
                                 <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete ? "completed" : "pending"}</button> </div>
-                                <button className='btn' onClick={() => deleteItem(item.id)}>{item.complete}delete</button>
                                 <hr />
                             </div>
                         ))}
                 </div>
             </div>
-            <div className='slider'>
+            <div className='Slider'>
                 <Pagination value={activePage} onChange={setPage} total={totalpages} />
             </div>
         </div >

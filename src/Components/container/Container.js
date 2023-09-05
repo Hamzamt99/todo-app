@@ -8,10 +8,8 @@ export default function Container() {
     return (
         <div>
             <Context>
-                <NavTool />
                 <Todo />
                 <List />
-                <Footer />
             </Context>
         </div>
     )
