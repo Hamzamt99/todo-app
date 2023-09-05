@@ -6,7 +6,8 @@ function NavTool() {
     <>
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/home" style={{ color: 'white' }}>Home</Navbar.Brand>
+          <Navbar.Brand href="/" style={{ color: 'white' }}>Home</Navbar.Brand>
+          <Navbar.Brand href="/setting" style={{ color: 'white' }}>setting</Navbar.Brand>
         </Container>
       </Navbar>
     </>

@@ -1,8 +1,5 @@
 export const INITIAL_STATES = {
-    list: [],
-    DELETE_ITEM: [],
-    TOGGLE_COMPLETE: [],
-    // incomplete: 0,
+    list: []
 }
 
 export const reducerHandler = (state, action) => {
@@ -21,10 +18,12 @@ export const reducerHandler = (state, action) => {
                 ...state,
                 TOGGLE_COMPLETE: action.payload
             }
-        // case 'incomplete':
-        //     return {
-        //         ...state,
-        //         incomplete: action.payload
-        //     }
+        case 'formSetting':
+            return {
+                ...state,
+                formSetting: action.payload 
+            }
+        default:
+            return state
     }
 }
