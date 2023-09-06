@@ -16,6 +16,8 @@ const Todo = () => {
     item.id = uuid();
     item.complete = false;
     setting.dispatch({ type: 'list', payload: item });
+    setting.setRefresh(count => count + 1)
+
   }
 
   // useEffect(() => {
