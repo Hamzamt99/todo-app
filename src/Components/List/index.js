@@ -6,9 +6,7 @@ export default function List() {
 
     const setting = useContext(Setting)
 
-    const from = localStorage.getItem('form')
-
-    const data = JSON.parse(from)
+    const data = setting.state.formSetting
 
     const incompleted = setting.state.list.filter(item => item.complete === false)
 

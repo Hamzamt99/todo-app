@@ -23,7 +23,6 @@ export default function SettingForm() {
         };
         localStorage.setItem('form', JSON.stringify(obj));
         setData(obj);
-        setting.dispatch({ type: 'formSetting', payload: obj });
         setShow(true);
     };
 
