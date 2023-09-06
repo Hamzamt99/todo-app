@@ -18,7 +18,7 @@ export default function SettingForm() {
         e.preventDefault();
         const obj = {
             switch: isChecked,
-            perPage: e.target.perPage.value || 1,
+            perPage: e.target.perPage.value || 3,
             sort: e.target.sort.value || 'Difficulty',
         };
         localStorage.setItem('form', JSON.stringify(obj));
