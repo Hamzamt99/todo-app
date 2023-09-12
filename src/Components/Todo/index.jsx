@@ -3,9 +3,10 @@ import useForm from '../../hooks/form';
 import { Setting } from '../../Context/Settings'
 import { v4 as uuid } from 'uuid';
 import './style.scss'
+import { loginContext } from '../../Context/AuthContext/index';
 const Todo = () => {
   const setting = useContext(Setting)
-
+  const { can } = useContext(loginContext);
   const [defaultValues] = useState({
     difficulty: 4,
   });

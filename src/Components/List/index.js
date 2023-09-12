@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Setting } from '../../Context/Settings'
 import { Pagination } from '@mantine/core';
+import Auth from '../auth/';
 import './style.scss'
+import { loginContext } from '../../Context/AuthContext/index';
 export default function List() {
+
+    const { can } = useContext(loginContext);
 
     const setting = useContext(Setting)
 
@@ -20,22 +24,26 @@ export default function List() {
     let totalpages = Math.ceil(setting.state.list.length / 3)
 
     function toggleComplete(id) {
-        const items = setting.state.list.filter(item => {
-            if (item.id === id) {
-                item.complete = !item.complete;
-            }
-            return item;
-        });
-        setting.dispatch({ type: 'TOGGLE_COMPLETE', payload: items });
+        if (can('update')) {
+            const items = setting.state.list.filter(item => {
+                if (item.id === id) {
+                    item.complete = !item.complete;
+                }
+                return item;
+            });
+            setting.dispatch({ type: 'TOGGLE_COMPLETE', payload: items });
+
+        } else return console.log("you dont have the permission");
+
 
     }
 
     function deleteItem(id) {
-        const items = setting.state.list.filter(item => item.id !== id);
-        setting.dispatch({ type: 'DELETE_ITEM', payload: items });
-
+        if (can('delete')) {
+            const items = showingItems.filter(item => item.id !== id);
+            setting.dispatch({ type: 'DELETE_ITEM', payload: items });
+        } else return console.log("you dont have the permission");
     }
-
 
     return (
         <div>
@@ -46,13 +54,16 @@ export default function List() {
                 <div className="header-container">
                     {
                         showingItems.map(item => (
-                            <div key={item.id} className="todo-item">
-                                <p className='pargraph'>Task: {item.text}</p>
-                                <p>Assigned to: {item.assignee}</p>
-                                <p>Difficulty: {item.difficulty}</p>
-                                <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete ? "completed" : "pending"}</button> </div>
-                                <hr />
-                            </div>
+                            <Auth capability="read">
+                                <div key={item.id} className="todo-item">
+                                    <p className='pargraph'>Task: {item.text}</p>
+                                    <p>Assigned to: {item.assignee}</p>
+                                    <p>Difficulty: {item.difficulty}</p>
+                                    <div onClick={() => deleteItem(item.id)} >Delete: <button className='btn'>Delete</button> </div>
+                                    <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete ? "completed" : "pending"}</button> </div>
+                                    <hr />
+                                </div>
+                            </Auth>
                         ))}
                 </div>
             </div>
