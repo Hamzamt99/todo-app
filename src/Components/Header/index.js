@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { When } from 'react-if';
 import { loginContext } from '../../Context/AuthContext/index';
-// import './style.scss'
+import './style.scss'
 
 function NavTool() {
   const { loggedIn, logout, signin } = useContext(loginContext);
