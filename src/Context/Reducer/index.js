@@ -10,8 +10,7 @@ export const reducerHandler = (state, action) => {
             }
         case 'DELETE_ITEM':
             return {
-                ...state,
-                DELETE_ITEM: action.payload
+                list: action.payload
             }
         case 'TOGGLE_COMPLETE':
             return {
@@ -21,7 +20,7 @@ export const reducerHandler = (state, action) => {
         case 'formSetting':
             return {
                 ...state,
-                formSetting: action.payload 
+                formSetting: action.payload
             }
         default:
             return state
