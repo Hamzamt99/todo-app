@@ -1,5 +1,5 @@
 
-## pull request : https://github.com/Hamzamt99/todo-app/pull/7
+## pull request : https://github.com/Hamzamt99/todo-app/pull/9
 
 ## deploy link : https://main--glowing-scone-def0be.netlify.app/
 
