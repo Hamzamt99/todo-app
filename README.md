@@ -7,3 +7,9 @@
 
 ## uml :
 ![uml](./src/assetes/uml.jpg)
+
+## uml for the new updates: 
+![uml](./src/assetes/umlUpdate.jpg)
+
+
+j
