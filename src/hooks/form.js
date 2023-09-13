@@ -1,24 +1,34 @@
-import { useState, useEffect , useContext} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { loginContext } from '../Context/AuthContext/index';
+import axios from 'axios';
 
-const useForm = (callback, defaultValues={}) => {
-  const {can} = useContext(loginContext); 
+const useForm = (callback, defaultValues = {}) => {
+  const { can } = useContext(loginContext);
 
   const [values, setValues] = useState({});
 
-  const handleSubmit = (event) => {
-    if(can('create')){
+  const handleSubmit = async (event) => {
+    try {
+      if (can('create')) {
+        event.preventDefault();
+        callback({ ...values });
+        let obj = {
+          text: event.target.text.value,
+          assignee: event.target.assignee.value,
+          difficulty: event.target.difficulty.value,
+        }
+        const res = await axios.post(`https://sample-back-end.onrender.com/todo`, obj)
+      }
       event.preventDefault();
-      callback({...values});
-
-    } 
-    event.preventDefault();
+    } catch (e) {
+      console.log(e.message);
+    }
 
   };
 
   const handleChange = (event) => {
     let name, value;
-    if(typeof(event) === 'object'){
+    if (typeof (event) === 'object') {
       name = event.target.name;
       value = event.target.value;
     } else {
@@ -37,8 +47,8 @@ const useForm = (callback, defaultValues={}) => {
     setValues(values => ({ ...values, [name]: value }));
   };
 
-  useEffect( () => {
-    setValues( defaultValues );
+  useEffect(() => {
+    setValues(defaultValues);
   }, [defaultValues]);
 
   return {

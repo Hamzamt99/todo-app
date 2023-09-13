@@ -4,7 +4,21 @@ import { Pagination } from '@mantine/core';
 import Auth from '../auth/';
 import './style.scss'
 import { loginContext } from '../../Context/AuthContext/index';
+import axios from 'axios';
 export default function List() {
+
+    const [refresh, setRefresh] = useState()
+    const [res, setData] = useState([])
+
+    useEffect(() => {
+        axios.get(`https://sample-back-end.onrender.com/todo`)
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, [refresh]);
 
     const { can } = useContext(loginContext);
 
@@ -12,7 +26,7 @@ export default function List() {
 
     const data = setting.state.formSetting
 
-    const incompleted = setting.state.list.filter(item => item.complete === false)
+    const incompleted = res.filter(item => item.complete === false)
 
     const [activePage, setPage] = useState(1);
 
@@ -20,14 +34,22 @@ export default function List() {
 
     const statItem = (activePage - 1) * itemPerPage
     const endItem = statItem + itemPerPage
-    const showingItems = data && data.switch ? setting.state.list.slice(statItem, endItem) : incompleted.slice(statItem, endItem)
-    let totalpages = Math.ceil(setting.state.list.length / 3)
+    const showingItems = data && data.switch ? res.slice(statItem, endItem) : incompleted.slice(statItem, endItem)
+    let totalpages = Math.ceil(res.length / 3)
 
     function toggleComplete(id) {
         if (can('update')) {
-            const items = setting.state.list.filter(item => {
+            const items = res.filter(item => {
                 if (item.id === id) {
-                    item.complete = !item.complete;
+                    const state = item.complete = !item.complete;
+                    const obj = {
+                        complete: state
+                    }
+                    // const state = item.complete = !item.complete;
+                    axios.put(`https://sample-back-end.onrender.com/todo/${id}`, obj).then(data => {
+                        console.log(data.data);
+                    })
+                    // setRefresh(count => count + 1)
                 }
                 return item;
             });
@@ -40,10 +62,17 @@ export default function List() {
 
     function deleteItem(id) {
         if (can('delete')) {
+            axios.delete(`https://sample-back-end.onrender.com/todo/${id}`).then(data => {
+                setRefresh(data)
+            })
             const items = showingItems.filter(item => item.id !== id);
             setting.dispatch({ type: 'DELETE_ITEM', payload: items });
         } else return console.log("you dont have the permission");
     }
+
+    useEffect(() => {
+
+    })
 
     return (
         <div>
