@@ -15,7 +15,7 @@ export const reducerHandler = (state, action) => {
         case 'TOGGLE_COMPLETE':
             return {
                 ...state,
-                TOGGLE_COMPLETE: action.payload
+                list: action.payload
             }
         case 'formSetting':
             return {
