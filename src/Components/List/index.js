@@ -6,6 +6,7 @@ import './style.scss'
 import { loginContext } from '../../Context/AuthContext/index';
 import axios from 'axios';
 export default function List() {
+    const { loggedIn } = useContext(loginContext);
 
     const [refresh, setRefresh] = useState()
     const [res, setData] = useState([])
@@ -75,30 +76,36 @@ export default function List() {
     })
 
     return (
-        <div>
-            <header data-testid="todo-header" className="todo-header" >
-                <h2 data-testid="todo-h1" >To Do List: {showingItems.length} items pending : </h2>
-            </header>
-            <div className='list-container'>
-                <div className="header-container">
-                    {
-                        showingItems.map(item => (
-                            <Auth capability="read">
-                                <div key={item.id} className="todo-item">
-                                    <p className='pargraph'>Task: {item.text}</p>
-                                    <p>Assigned to: {item.assignee}</p>
-                                    <p>Difficulty: {item.difficulty}</p>
-                                    <div onClick={() => deleteItem(item.id)} >Delete: <button className='btn'>Delete</button> </div>
-                                    <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete ? "completed" : "pending"}</button> </div>
-                                    <hr />
-                                </div>
-                            </Auth>
-                        ))}
-                </div>
-            </div>
-            <div className='Slider'>
-                <Pagination value={activePage} onChange={setPage} total={totalpages} />
-            </div>
-        </div >
+        <>
+            {
+                loggedIn &&
+                <div>
+                    <header data-testid="todo-header" className="todo-header" >
+                        <h2 data-testid="todo-h1" >To Do List: {showingItems.length} items pending : </h2>
+                    </header>
+                    <div className='list-container'>
+                        <div className="header-container">
+                            {
+                                showingItems.map(item => (
+                                    <Auth capability="read">
+                                        <div key={item.id} className="todo-item">
+                                            <p className='pargraph'>Task: {item.text}</p>
+                                            <p>Assigned to: {item.assignee}</p>
+                                            <p>Difficulty: {item.difficulty}</p>
+                                            <div onClick={() => deleteItem(item.id)} >Delete: <button className='btn'>Delete</button> </div>
+                                            <div onClick={() => toggleComplete(item.id)} >Complete: <button className='btn'>{item.complete ? "completed" : "pending"}</button> </div>
+                                            <hr />
+                                        </div>
+                                    </Auth>
+                                ))}
+                        </div>
+                    </div>
+                    <div className='Slider'>
+                        <Pagination value={activePage} onChange={setPage} total={totalpages} />
+                    </div>
+                </div >
+            }
+        </>
+
     )
 }
