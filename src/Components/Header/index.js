@@ -25,7 +25,10 @@ function NavTool() {
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="/" style={{ color: 'white' }}>Home</Navbar.Brand>
-          <Navbar.Brand href="/setting" style={{ color: 'white' }}>setting</Navbar.Brand>
+          {
+            loggedIn &&
+            <Navbar.Brand href="/setting" style={{ color: 'white' }}>setting</Navbar.Brand>
+          }
           {
             !loggedIn &&
             <Navbar.Brand href="/signup" style={{ color: 'white' }}>signup</Navbar.Brand>
